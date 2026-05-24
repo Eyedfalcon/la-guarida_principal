@@ -11,27 +11,33 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
   <div class="ambient ambient-red" aria-hidden="true"></div>
   <div class="ambient ambient-warm" aria-hidden="true"></div>
 
   <main class="page-shell">
     <section class="hero" aria-labelledby="page-title">
-      <p class="kicker">Directorio oficial</p>
+      <p class="kicker reveal delay-1">Directorio oficial</p>
       <div class="brand-mark" aria-label="La Guarida Barber Studio">
-        <span class="brand-la">La</span>
-        <span class="brand-guarida">Guarida</span>
-        <span class="brand-studio">Barber Studio</span>
+        <span class="brand-la reveal delay-2">La</span>
+        <span class="brand-guarida reveal delay-3">Guarida</span>
+        <span class="brand-studio reveal delay-4">Barber Studio</span>
       </div>
-      <div class="red-line"></div>
-      <h1 id="page-title" class="hero-heading">Elige tu sucursal</h1>
-      <p class="hero-sub">Selecciona el espacio al que quieres ingresar</p>
+      <div class="scissors-divider reveal delay-5">
+        <div class="scissors-line"></div>
+        <span class="scissors-icon" aria-hidden="true">✂</span>
+        <div class="scissors-line right"></div>
+      </div>
+      <h1 id="page-title" class="hero-heading reveal delay-6">Elige tu sucursal</h1>
+      <p class="hero-sub reveal delay-7">Selecciona el espacio al que quieres ingresar</p>
     </section>
 
     <section class="grid-wrapper" aria-label="Sucursales disponibles">
       <div class="branches-grid">
-        <a class="branch-card card-dark" href="https://la-guarida-frontend-y6zo.vercel.app/" data-branch="principal" style="--delay: 80ms">
+        <a class="branch-card card-dark reveal delay-2" href="https://la-guarida-frontend-y6zo.vercel.app/" data-branch="principal" style="--delay: 80ms">
           <div class="card-header">
-            <span class="card-icon" aria-hidden="true">✂</span>
+            <span class="card-icon icon-dark" aria-hidden="true">✂</span>
             <span class="card-badge badge-red">Abierto</span>
           </div>
           <div class="card-body">
@@ -47,7 +53,7 @@
           </div>
         </a>
 
-        <a class="branch-card card-kids" href="https://la-guarida-kids.vercel.app/" data-branch="kids" style="--delay: 180ms">
+        <a class="branch-card card-kids reveal delay-3" href="https://la-guarida-kids.vercel.app/" data-branch="kids" style="--delay: 180ms">
           <div class="card-header">
             <span class="card-icon kids-icon" aria-hidden="true">🧸</span>
             <span class="card-badge badge-black">Abierto</span>
@@ -65,9 +71,9 @@
           </div>
         </a>
 
-        <article class="branch-card card-soon" aria-label="Nueva sucursal próximamente" style="--delay: 280ms">
+        <article class="branch-card card-soon reveal delay-4" aria-label="Nueva sucursal próximamente" style="--delay: 280ms">
           <div class="card-header">
-            <span class="card-icon muted-icon" aria-hidden="true">📍</span>
+            <span class="card-icon icon-soon muted-icon" aria-hidden="true">📍</span>
             <span class="card-badge badge-muted">Próximamente</span>
           </div>
           <div class="card-body">
