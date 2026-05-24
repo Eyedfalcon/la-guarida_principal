@@ -1,7 +1,7 @@
 ﻿document.getElementById("year").textContent = new Date().getFullYear();
 
 const branchLinks = {
-  principal: "https://la-guarida-frontend-y6zo.vercel.app/",
+  principal: "https://la-guarida-frontend-5uqi.vercel.app/",
   kids: "https://la-guarida-kids.vercel.app/"
 };
 
