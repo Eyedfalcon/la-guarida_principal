@@ -5,8 +5,9 @@
 }
 
 :root {
-  --dark: #2e2b29;
-  --card-dark: #252220;
+  --dark: #2b2927;
+  --card-dark: #24211f;
+  --card-deep: #1e1b19;
   --red: #cc1f1f;
   --red-bright: #e83030;
   --white: #f5f3f0;
@@ -14,12 +15,15 @@
   --gray: #8a8480;
   --light-gray: #c0bcb8;
   --radius: 18px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  background: var(--dark);
+  background:
+    radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.08), transparent 34rem),
+    linear-gradient(145deg, #211f1d 0%, var(--dark) 46%, #24211f 100%);
   color: var(--white);
   font-family: "DM Sans", system-ui, sans-serif;
 }
@@ -28,7 +32,9 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(204, 31, 31, 0.1) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse 70% 42% at 50% 0%, rgba(204, 31, 31, 0.14) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.16), transparent 36%, rgba(0, 0, 0, 0.22));
   content: "";
   pointer-events: none;
 }
@@ -44,6 +50,29 @@ body::after {
   pointer-events: none;
 }
 
+.ambient {
+  position: fixed;
+  z-index: 0;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 999px;
+  filter: blur(64px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.ambient-red {
+  top: 9rem;
+  left: -10rem;
+  background: var(--red);
+}
+
+.ambient-warm {
+  right: -11rem;
+  bottom: 6rem;
+  background: #b68b5b;
+}
+
 .page-shell,
 footer {
   position: relative;
@@ -51,13 +80,29 @@ footer {
 }
 
 .hero {
-  padding: 4.5rem 1.5rem 3rem;
+  padding: 4.4rem 1.5rem 3rem;
   text-align: center;
+}
+
+.kicker {
+  width: fit-content;
+  margin: 0 auto 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(245, 243, 240, 0.66);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  padding: 0.42rem 0.9rem;
+  text-transform: uppercase;
+  animation: rise-in 600ms var(--ease) both;
 }
 
 .brand-mark {
   display: inline-grid;
   justify-items: center;
+  animation: rise-in 700ms var(--ease) 60ms both;
 }
 
 .brand-la,
@@ -93,6 +138,8 @@ footer {
   margin: 1.85rem auto 1.7rem;
   border-radius: 999px;
   background: var(--red-bright);
+  box-shadow: 0 0 18px rgba(232, 48, 48, 0.34);
+  animation: line-in 680ms var(--ease) 220ms both;
 }
 
 .hero-heading {
@@ -103,12 +150,14 @@ footer {
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  animation: rise-in 700ms var(--ease) 280ms both;
 }
 
 .hero-sub {
   color: var(--gray);
   font-size: 0.95rem;
   font-weight: 300;
+  animation: rise-in 700ms var(--ease) 340ms both;
 }
 
 .grid-wrapper {
@@ -128,15 +177,19 @@ footer {
   min-height: 248px;
   flex-direction: column;
   gap: 0.9rem;
+  isolation: isolate;
   overflow: hidden;
   border-radius: var(--radius);
   padding: 1.75rem;
   text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transform: translateY(18px);
+  opacity: 0;
+  animation: card-in 720ms var(--ease) var(--delay, 0ms) forwards;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .branch-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
 
 .branch-card:focus-visible {
@@ -146,9 +199,29 @@ footer {
 
 .card-dark {
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: var(--card-dark);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.035), transparent 38%),
+    var(--card-dark);
   color: var(--white);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.card-dark::after,
+.card-kids::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 46%, transparent 72%);
+  content: "";
+  opacity: 0;
+  transform: translateX(-38%);
+  transition: opacity 0.25s ease, transform 0.5s var(--ease);
+}
+
+.card-dark:hover::after,
+.card-kids:hover::after {
+  opacity: 1;
+  transform: translateX(38%);
 }
 
 .card-dark::before,
@@ -173,7 +246,9 @@ footer {
 
 .card-kids {
   border: 1.5px solid #dedede;
-  background: #f9f9f9;
+  background:
+    linear-gradient(145deg, rgba(56, 189, 248, 0.11), transparent 40%),
+    #f9f9f9;
   color: #1a1a1a;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
 }
@@ -190,7 +265,9 @@ footer {
 .card-soon {
   cursor: default;
   border: 1px dashed rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.025);
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 12px),
+    rgba(255, 255, 255, 0.025);
   color: rgba(255, 255, 255, 0.25);
 }
 
@@ -208,8 +285,23 @@ footer {
 }
 
 .card-icon {
+  display: grid;
+  width: 2.55rem;
+  height: 2.55rem;
+  place-items: center;
+  border-radius: 0.95rem;
   font-size: 1.85rem;
   line-height: 1;
+}
+
+.card-dark .card-icon {
+  background: rgba(204, 31, 31, 0.12);
+  color: var(--red-bright);
+}
+
+.card-kids .card-icon {
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(26, 26, 26, 0.1);
 }
 
 .kids-icon {
@@ -227,6 +319,25 @@ footer {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.badge-red,
+.badge-black {
+  position: relative;
+  padding-left: 1.35rem;
+}
+
+.badge-red::before,
+.badge-black::before {
+  position: absolute;
+  top: 50%;
+  left: 0.65rem;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  transform: translateY(-50%);
 }
 
 .badge-red {
@@ -345,6 +456,7 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   padding: 1.8rem 1.5rem 3rem;
   text-align: center;
+  animation: rise-in 700ms var(--ease) 420ms both;
 }
 
 footer p {
@@ -368,4 +480,48 @@ footer em {
   .branch-card { min-height: 226px; padding: 1.45rem; }
   .card-footer { align-items: flex-start; flex-direction: column; }
   .enter-btn { justify-content: center; width: 100%; }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes line-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.25);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
 }
